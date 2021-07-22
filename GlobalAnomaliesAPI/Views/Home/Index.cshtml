@@ -1,0 +1,116 @@
+﻿<!---<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+
+<div class="container">
+
+    <div class="row" id="headerrow">
+        <h1>My Assessment Page</h1>
+    </div>
+
+    <div class="row" id="chartrow" name="chartrow">
+        <div class="column">
+            <canvas id="myChart" />
+        </div>
+    </div>
+
+    <div class="row" id="accordionrow" name="accordionrow">
+        <div class="column col-md-6" id="accordioncol1" name="accoridoncol1">
+            <div class="accordion" id="accordion1" name="accordion1">
+                <div class="accordion-item" id="accordionitem1" name="accordionitem1">
+                    <h2 class="accordion-header" id="accordionheader1" name="accordionheader1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion1collapseOne" aria-expanded="true" aria-controls="accordion1collapseOne">
+                            Sea Animals
+                        </button>
+                    </h2>
+                    <div class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#ac" id="accordion1collapseOne" name="accordion1collapseOne">
+                        <div class="accordion-body">
+                            <ul>      
+                                <li>Shark</li>
+                                <li>Whale</li>
+                                <li>Octopus</li>
+                                <li>Squid</li>
+                                <li>Eel</li>
+                                <li>Starfish</li>
+                                <li>Turtle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="column col-md-6" id="accordioncol2" name="accoridoncol2" >
+            <div class="accordion" id="accorodion2" name="accordion2">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="accordionheader2" name="accordionheader2">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                           Land Animals
+                        </button>
+
+                    </h2>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordionheader1" name="accordionheader1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Accordion Item #1
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            const endPoint = "https://localhost:44392/api/GlobalAnomalies";
+            const fetchedData = fetch(endPoint)
+                .then((response) => response.json())
+                .then((data) => {
+                    let years = [];
+                    let temperatureData = [];
+                    for (let dataPoint in data.data) {
+                        years.push(dataPoint);
+                        temperatureData.push([dataPoint, data.data[dataPoint]]);
+                    }
+                    let ctx = document.getElementById("myChart");
+                    let myChart = new Chart(ctx, {
+                        responsive: true,
+                        type: "line",
+                        data: {
+                            labels: years,
+                            datasets: [
+                                {
+                                    label: data.description.title,
+                                    data: temperatureData,
+                                    borderWidth: 2,
+                                    borderColor: "red",
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [
+                                    {
+                                        ticks: {
+                                            beginAtZero: true,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    });
+                });
+
+            debugger;
+        </script>-->

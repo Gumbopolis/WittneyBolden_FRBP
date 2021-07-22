@@ -1,0 +1,90 @@
+﻿@model  GlobalAnomaliesMVC.Models.AccordionList
+
+<div class="container" id="bodycontainer">
+
+    <div class="row" id="headerrow">
+        <h1>My Assessment Page</h1>
+    </div>
+
+    <div class="row mb-5" id="chartrow" name="chartrow">
+        <div class="column">
+            <canvas id="myChart" />
+        </div>
+    </div>
+
+    <div class="row" id="accordionrow" name="accordionrow">
+        @** Create an iteraror to create names and ids to differentiate ids and lables for Chartjs *@
+        @foreach (var accordionItem in Model.AccordionListProperty.Select((v, i) => new { theValue = v, theIndex = i }).Take(2))
+        {
+            <div class="column col-md-6" id="accordioncol_@accordionItem.theIndex">
+                <div class="accordion" id="accordion_@accordionItem.theIndex">
+                    <div class="accordion-item" id="accordionitem_@accordionItem.theIndex">
+                        <h2 class="accordion-header" id="accordionheader_@accordionItem.theIndex">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordioncollapse_@accordionItem.theIndex" aria-expanded="true" aria-controls="accordioncollapse_@accordionItem.theIndex">
+                                @accordionItem.theValue.AccordionHeader
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse show" aria-labelledby="accordionheader_@accordionItem.theIndex" data-bs-parent="#accordion_@accordionItem.theIndex" id="accordioncollapse_@accordionItem.theIndex">
+                            <div class="accordion-body">
+                                <ul>
+                                    @foreach (var itemText in @accordionItem.theValue.AccordionItemList)
+                                    {
+                                        <li>@itemText</li>
+                                    }
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+
+    const endPoint = "https://localhost:44392/api/GlobalAnomalies";
+
+            const fetchedData = fetch(endPoint)
+                .then((response) => response.json())
+                .then((data) => {
+                let years = [];
+                let temperatureData = [];
+                    for (let dataPoint in data.data) {
+                    years.push(dataPoint);
+                    temperatureData.push([dataPoint, data.data[dataPoint]]);
+        }
+        let ctx = document.getElementById("myChart");
+        let myChart = new Chart(ctx, {
+
+            responsive: true,
+            type: "line",
+            data: {
+
+                labels: years,
+                datasets: [
+                    {
+                        label: data.description.title,
+                        data: temperatureData,
+                        borderWidth: 2,
+                        borderColor: "red",
+                    },
+                ],
+            },
+            options: {
+                animation: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                               },
+                        },],
+                    },
+                },
+            });
+        });
+
+</script>
